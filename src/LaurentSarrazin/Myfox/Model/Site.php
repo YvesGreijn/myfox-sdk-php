@@ -20,14 +20,19 @@ class Site extends AbstractItem
         }
     }
 
-    public function getCameraItems()
+    public function getCameras()
     {
-        return $this->myfoxClient->getItems('camera', "site/" . $this->siteId . "/device/camera");
+        return $this->getDevices('camera');
     }
 
-    public function getShutterItems()
+    public function getShutters()
     {
-        return $this->myfoxClient->getItems('shutter', "site/" . $this->siteId . "/device/shutter");
+        return $this->getDevices('shutter');
+    }
+
+    protected function getDevices($type)
+    {
+        return $this->myfoxClient->getItems($type, "site/" . $this->siteId . "/device/$type");
     }
 
     /**

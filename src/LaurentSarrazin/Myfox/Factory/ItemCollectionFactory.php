@@ -17,14 +17,11 @@ class ItemCollectionFactory
         $response = json_decode($json);
 
         $collection = self::create($type, $myfox_client);
-        $items = new \SplFixedArray();
+        $items = [];
 
         if (isset ($response->payload) && isset ($response->payload->items)) {
-            $items->setSize(count($response->payload->items));
-            $i = 0;
             foreach ($response->payload->items as $item) {
-                $items[$i] = ItemFactory::create($type, $myfox_client, $item);
-                $i++;
+                $items[] = ItemFactory::create($type, $myfox_client, $item);
             }
         }
 

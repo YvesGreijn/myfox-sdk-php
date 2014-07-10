@@ -3,9 +3,13 @@
 namespace LaurentSarrazin\Myfox\Model;
 
 
-class AbstractCollection
+class AbstractCollection implements \IteratorAggregate
 {
     protected $items;
+
+    public function getIterator() {
+        return new \ArrayIterator($this->items);
+    }
 
     /**
      * @param mixed $items

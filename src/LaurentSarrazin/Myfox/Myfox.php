@@ -36,7 +36,7 @@ class Myfox
     {
         $client = ItemFactory::create('client', $this);
 
-        return $client->getSiteItems()->getItems();
+        return $client->getSiteItems();
     }
 
     public function getSite($label)
