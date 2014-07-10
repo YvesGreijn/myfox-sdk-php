@@ -1,0 +1,23 @@
+{
+    "name": "laurentsarrazin/myfox",
+    "type": "library",
+    "description": "Myfox api wrapper.",
+    "keywords": ["myfox", "api", "domotics"],
+    "homepage": "http://github.com/Laurent-Sarrazin/myfox-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Laurent Sarrazin",
+            "email": "laurent@sarrazin.io"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "kriswallsmith/buzz": "@stable"
+    },
+    "autoload": {
+        "psr-0": { "Myfox": "src/" }
+    }
+}
