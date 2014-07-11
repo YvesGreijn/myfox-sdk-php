@@ -12,10 +12,8 @@ class Shutter extends AbstractItem
 
     public function close()
     {
-        $site_id = $this->client->getSiteId();
+        $path = 'site/' . $this->siteId . '/device/' . $this->deviceId . '/shutter/close';
 
-        $path = 'site/' . $site_id . '/device/' . $this->deviceId . '/shutter/close';
-
-        return $this->client->executeRequest($path, 'post');
+        return $this->myfoxClient->executeRequest($path, 'post');
     }
 } 

@@ -52,7 +52,7 @@ class Myfox
         return null;
     }
 
-    public function getItems($type, $path)
+    public function getItems($type, $path, $site_id = null)
     {
         $property = $type . 'Items';
 
@@ -62,7 +62,7 @@ class Myfox
 
         $json = $this->$property->getContent();
 
-        $collection = ItemCollectionFactory::createFromJson($json, $type, $this);
+        $collection = ItemCollectionFactory::createFromJson($json, $type, $this, $site_id);
 
         return $collection;
     }

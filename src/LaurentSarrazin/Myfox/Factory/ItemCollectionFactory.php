@@ -12,7 +12,7 @@ class ItemCollectionFactory
         return new $class($myfox_client);
     }
 
-    public static function createFromJson($json, $type, $myfox_client)
+    public static function createFromJson($json, $type, $myfox_client, $site_id)
     {
         $response = json_decode($json);
 
@@ -21,7 +21,7 @@ class ItemCollectionFactory
 
         if (isset ($response->payload) && isset ($response->payload->items)) {
             foreach ($response->payload->items as $item) {
-                $items[] = ItemFactory::create($type, $myfox_client, $item);
+                $items[] = ItemFactory::create($type, $myfox_client, $item, $site_id);
             }
         }
 

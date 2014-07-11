@@ -10,16 +10,6 @@ class Site extends AbstractItem
     protected $timezone;
     protected $AXA;
 
-    public function closeAllShutters()
-    {
-        $shutters = $this->client->getShutterItems($this->siteId);
-
-        foreach ($shutters as $shutter)
-        {
-            $shutter->close();
-        }
-    }
-
     public function getCameras()
     {
         return $this->getDevices('camera');
@@ -32,7 +22,7 @@ class Site extends AbstractItem
 
     protected function getDevices($type)
     {
-        return $this->myfoxClient->getItems($type, "site/" . $this->siteId . "/device/$type");
+        return $this->myfoxClient->getItems($type, "site/" . $this->siteId . "/device/$type", $this->siteId);
     }
 
     /**
