@@ -3,7 +3,7 @@
 namespace LaurentSarrazin\Myfox\Model;
 
 
-class AbstractCollection implements \IteratorAggregate
+class AbstractCollection extends \ArrayObject
 {
     protected $items;
 
