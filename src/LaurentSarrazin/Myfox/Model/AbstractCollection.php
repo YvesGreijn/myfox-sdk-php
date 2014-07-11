@@ -26,4 +26,23 @@ class AbstractCollection extends \ArrayObject
     {
         return $this->items;
     }
-} 
+
+    public function getItemName()
+    {
+        return static::ITEM_NAME;
+    }
+
+    public function __call($name, $args)
+    {
+        $class = __NAMESPACE__ . '\\' . ucfirst($this->getItemName());
+
+        if (method_exists($class, $name)) {
+            $result = [];
+            foreach ($this->getItems() as $item) {
+                $result[] = call_user_func_array([$item, $name], $args);
+            }
+
+            return $result;
+        }
+    }
+}
