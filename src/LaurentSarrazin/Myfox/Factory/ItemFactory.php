@@ -21,7 +21,7 @@ class ItemFactory
                 $object->$method($value);
             }
 
-            $object->siteId = $site_id;
+            $object->setSiteId($site_id);
         }
 
         return $object;

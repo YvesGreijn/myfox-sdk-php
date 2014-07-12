@@ -1,14 +1,15 @@
 <?php
 namespace LaurentSarrazin\Myfox;
 
-use Buzz\Browser;
+use Widop\HttpAdapter\CurlHttpAdapter;
+use Widop\HttpAdapter\HttpAdapterInterface;
 use LaurentSarrazin\Myfox\Factory\ItemCollectionFactory;
 use LaurentSarrazin\Myfox\Factory\ItemFactory;
 
 class Myfox
 {
     protected $token;
-    protected $httpClient;
+    protected $httpAdapter;
 
     protected $siteItems;
     protected $cameraItems;
@@ -23,13 +24,13 @@ class Myfox
 
     const API_BASE_URL = 'https://api.myfox.me:443/v2';
 
-    public function __construct($token, $httpClient = null)
+    public function __construct($token, HttpAdapterInterface $httpAdapter = null)
     {
         $this->token = $token;
-        if (null === $httpClient) {
-            $httpClient = new Browser();
+        if (null === $httpAdapter) {
+            $httpAdapter = new CurlHttpAdapter();
         }
-        $this->httpClient = $httpClient;
+        $this->httpAdapter = $httpAdapter;
     }
 
     public function getSites()
@@ -60,18 +61,16 @@ class Myfox
             $this->$property = $this->executeRequest('/' . $path . '/items');
         }
 
-        $json = $this->$property->getContent();
-
-        $collection = ItemCollectionFactory::createFromJson($json, $type, $this, $site_id);
-
-        return $collection;
+        return ItemCollectionFactory::createFromJson($this->$property, $type, $this, $site_id);
     }
 
     public function executeRequest($path, $method = 'get', $params = array())
     {
         $params['access_token'] = $this->token;
 
-        return $this->httpClient->$method(
+        $method = $method . 'Content';
+
+        return $this->httpAdapter->$method(
             self::API_BASE_URL . $path . '?' . http_build_query($params)
         );
     }
